@@ -1,0 +1,19 @@
+﻿name: PR Title Checker
+on:
+  workflow_call:
+  pull_request:
+    branches:
+      - develop
+    types:
+      - opened
+      - edited
+      - synchronize
+
+jobs:
+  check-pr-title:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: Slashgear/action-check-pr-title@v4.3.0
+        with:
+          regexp: ".*(ab|AB)#[0-9]+.*" # Regex the title should match ab#(number) or AB#(number).
+          helpMessage: "PR title check failed: AB# must be included somewhere in the PR title!'"
