@@ -9,7 +9,7 @@ These are actions which are used in our workflows.
 ```yaml
   - name: Setup git token and brew
     id: brew_and_git
-    uses: recognizegroup/vwt-ip-action-modules/.github/actions/brew_and_gittoken@{laterst  release version}
+    uses: recognizegroup/vwt-ip-action-modules/.github/actions/brew_and_gittoken@{desired version}
     with:
       git_token: ${{ secrets.TEAM_ORANGE_GIT_TOKEN }}
 ```
@@ -21,9 +21,28 @@ These are actions which are used in our workflows.
 ```yaml
   - name: Terragrunt apply
     id: terragrunt_apply
-    uses: recognizegroup/vwt-ip-action-modules/.github/actions/terragrunt_apply@{laterst  release version}
+    uses: recognizegroup/vwt-ip-action-modules/.github/actions/terragrunt_apply@{desired version}
     with:
       webhook: ${{ secrets.TEAMS_WEBHOOK_URL }}
   ```
 
 # Workflows
+
+#### Pr title check
+
+```yaml
+name: PR Title Checker
+on:
+  pull_request:
+    branches:
+      - develop
+    types:
+      - opened
+      - edited
+      - synchronize
+
+jobs:
+  check-pr-title:
+    uses: recognizegroup/vwt-ip-action-modules/.github/workflows/pull_request_title.yaml@{desired version}
+```
+
