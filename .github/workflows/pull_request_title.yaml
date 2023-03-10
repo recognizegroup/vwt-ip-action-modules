@@ -9,10 +9,19 @@ on:
       - edited
       - synchronize
 
+inputs:
+  regex:
+    required: false
+    description: "teams webhook"
+    default: ".*(ab|AB)#[0-9]+.*"
+
 jobs:
   check-pr-title:
     runs-on: ubuntu-latest
     steps:
+      - name: Echo value
+        run: echo ${{ inputs.regex }}
+      - name: regex check
       - uses: Slashgear/action-check-pr-title@v4.3.0
         with:
           regexp: ".*(ab|AB)#[0-9]+.*" # Regex the title should match ab#(number) or AB#(number).
