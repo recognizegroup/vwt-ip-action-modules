@@ -1,5 +1,5 @@
-﻿name: 'Repeated Actions'
-description: 'Runs a composite step action'
+﻿name: Setup dependencies
+description: Setup dependencies required to run pipeline
 inputs:
   git_token:
     required: true

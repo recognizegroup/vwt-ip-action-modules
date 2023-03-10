@@ -1,12 +1,12 @@
-﻿name: 'Error report'
-description: 'Runs a composite step action'
+﻿name: Terragrunt Apply
+description: Runs Terragrunt apply and reports failure if occurs 
 inputs:
   webhook:
     required: false
     description: "teams webhook"
 
 runs:
-  using: "composite"
+  using: composite
   steps:
     - name: Terragrunt Apply
       run: |
