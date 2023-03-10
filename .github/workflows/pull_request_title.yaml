@@ -22,7 +22,7 @@ jobs:
       - name: Echo value
         run: echo ${{ inputs.regex }}
       - name: regex check
-      - uses: Slashgear/action-check-pr-title@v4.3.0
+        uses: Slashgear/action-check-pr-title@v4.3.0
         with:
           regexp: ".*(ab|AB)#[0-9]+.*" # Regex the title should match ab#(number) or AB#(number).
           helpMessage: "PR title check failed: AB# must be included somewhere in the PR title!'"
