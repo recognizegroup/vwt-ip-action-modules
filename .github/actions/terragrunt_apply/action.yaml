@@ -31,9 +31,8 @@ runs:
           find . -name .terraform -type d -exec rm -rf {} \;
       shell: bash
     - name: Update Terraform modules lock files if needed
-      if: (github.event_name != 'pull_request')
       run: |
-          terragrunt run-all init -upgrade
+          terragrunt run-all init
       shell: bash
     - name: Terragrunt Apply
       run: |
