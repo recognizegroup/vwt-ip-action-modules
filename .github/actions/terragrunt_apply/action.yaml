@@ -27,9 +27,8 @@ runs:
       shell: bash
     - name: remove lock files
       run: |
-        rm -r $TF_PLUGIN_CACHE_DIR/* --force
-        find . -name .terraform.lock.hcl -exec rm -rf {} \;
-        find . -name .terraform -type d -exec rm -rf {} \;
+          find . -name .terraform.lock.hcl -exec rm -rf {} \;
+          find . -name .terraform -type d -exec rm -rf {} \;
       shell: bash
     - name: Update Terraform modules lock files if needed
       if: (github.event_name != 'pull_request')
