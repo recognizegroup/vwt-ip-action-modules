@@ -30,13 +30,9 @@ runs:
           find . -name .terraform.lock.hcl -exec rm -rf {} \;
           find . -name .terraform -type d -exec rm -rf {} \;
       shell: bash
-#    - name: Update Terraform modules lock files if needed
-#      run: |
-#          terragrunt run-all init
-#      shell: bash
     - name: Terragrunt Apply
       run: |
-        TF_LOG=ERROR
+        export TF_LOG=ERROR
         terragrunt run-all init
         terragrunt run-all apply \
         --terragrunt-non-interactive
