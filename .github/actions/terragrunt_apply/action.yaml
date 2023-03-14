@@ -35,7 +35,8 @@ runs:
         export TF_LOG=ERROR
         terragrunt run-all init
         terragrunt run-all apply \
-        --terragrunt-non-interactive
+        --terragrunt-non-interactive \
+        --terragrunt-log-level error
       shell: bash
 #    - name: Notify about failures
 #      if: ${{ failure() }}
