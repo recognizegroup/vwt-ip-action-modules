@@ -34,7 +34,7 @@ runs:
       run: |
         terragrunt run-all init
         terragrunt run-all apply \
-        --terragrunt-non-interactive \
+        --terragrunt-non-interactive
       shell: bash
     - name: Notify about failures
       if: ${{ failure() }}
