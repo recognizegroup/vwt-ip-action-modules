@@ -36,6 +36,7 @@ runs:
 #      shell: bash
     - name: Terragrunt Apply
       run: |
+        TF_LOG=ERROR
         terragrunt run-all init
         terragrunt run-all apply \
         --terragrunt-non-interactive
