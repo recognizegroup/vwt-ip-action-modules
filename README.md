@@ -18,12 +18,30 @@ These are actions which are used in our workflows.
 ##### Input parameters
 - webhook (Webhook is used for notifying when terragrunt apply fails)
 ##### Example of use terragrunt apply
+
+By the environement parameters you should set directory the     
+
+ - TERRAGRUNT_DOWNLOAD:
+ - TF_PLUGIN_CACHE_DIR
+
+example with environment 
+
+```yaml
+env:
+  TERRAGRUNT_DOWNLOAD: ${{ github.workspace }}/.terragrunt
+  TF_PLUGIN_CACHE_DIR: ${{ github.workspace }}/.terragrunt/plugin-cache
+```
+
+Under steps add
+
 ```yaml
   - name: Terragrunt apply
     id: terragrunt_apply
     uses: recognizegroup/vwt-ip-action-modules/.github/actions/terragrunt_apply@{desired version}
     with:
       webhook: ${{ secrets.TEAMS_WEBHOOK_URL }}
+      terragrunt_download_directory: $TERRAGRUNT_DOWNLOAD
+      tf_plugin_directory: $TF_PLUGIN_CACHE_DIR
   ```
 
 # Workflows

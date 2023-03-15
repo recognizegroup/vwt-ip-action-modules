@@ -2,14 +2,37 @@
 description: Runs Terragrunt apply and reports failure if occurs 
 inputs:
   webhook:
-    required: false
+    required: true
     description: "teams webhook"
+  terragrunt_download_directory:
+    required: true
+    description: "Terragrunt download directory"
+  tf_plugin_directory:
+    required: true
+    description: "Terraform plugin directory"
+
 
 runs:
   using: composite
   steps:
+    - name: Create Terraform Download Directory
+      run: |
+        rm -r ${{ inputs.terragrunt_download_directory }}/* --force
+        mkdir --parents ${{ inputs.terragrunt_download_directory }}
+      shell: bash
+    - name: Create Terraform Plugin Cache Directory
+      run: |
+          rm -r ${{ inputs.tf_plugin_directory }}/* --force
+          mkdir --parents ${{ inputs.tf_plugin_directory }}
+      shell: bash
+    - name: remove lock files
+      run: |
+          find . -name .terraform.lock.hcl -exec rm -rf {} \;
+          find . -name .terraform -type d -exec rm -rf {} \;
+      shell: bash
     - name: Terragrunt Apply
       run: |
+        terragrunt run-all init
         terragrunt run-all apply \
         --terragrunt-non-interactive
       shell: bash
