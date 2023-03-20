@@ -18,7 +18,3 @@ runs:
     - name: Setup
       run: brew install terragrunt
       shell: bash
-    - name: Terraform version
-      run: |
-        terraform --version
-      shell: bash
