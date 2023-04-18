@@ -1,0 +1,10 @@
+name: "Dummy Code Scanning"
+
+on:
+  push:
+    branches: [ develop ]
+
+jobs:
+  code-scanning-dummy:
+    name: Perform code scanning (Dummy)
+    uses: recognizegroup/security/.github/workflows/code-scanning-dummy.yaml@v2
