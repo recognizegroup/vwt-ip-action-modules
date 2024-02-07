@@ -14,19 +14,18 @@ inputs:
 
 runs:
   using: composite
-  defaults:
-    run:
-      working-directory: ${{ inputs.working_directory }}
   steps:
     - name: Create Terraform Download Directory
       run: |
         rm -r ${{ inputs.terragrunt_download_directory }}/* --force
         mkdir --parents ${{ inputs.terragrunt_download_directory }}
+      working-directory: ${{ inputs.working_directory }}
       shell: bash
     - name: Terragrunt Apply
       run: |
         terragrunt run-all apply \
         --terragrunt-non-interactive
+      working-directory: ${{ inputs.working_directory }}
       shell: bash
     - name: Notify about failures
       if: ${{ failure() }}
