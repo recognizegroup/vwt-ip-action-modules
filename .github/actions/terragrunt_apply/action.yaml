@@ -12,12 +12,11 @@ inputs:
     default: .
     description: "Location where to execute terragrunt apply command"
 
-defaults:
-  run:
-    working-directory: ${{ inputs.working_directory }}
-
 runs:
   using: composite
+  defaults:
+    run:
+      working-directory: ${{ inputs.working_directory }}
   steps:
     - name: Create Terraform Download Directory
       run: |
