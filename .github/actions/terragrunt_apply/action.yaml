@@ -7,7 +7,14 @@ inputs:
   terragrunt_download_directory:
     required: true
     description: "Terragrunt download directory"
+  working_directory:
+    required: false
+    default: .
+    description: "Location where to execute terragrunt apply command"
 
+defaults:
+  run:
+    working-directory: ${{ inputs.working_directory }}
 
 runs:
   using: composite
