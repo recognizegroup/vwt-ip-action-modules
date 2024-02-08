@@ -7,7 +7,10 @@ inputs:
   terragrunt_download_directory:
     required: true
     description: "Terragrunt download directory"
-
+  working_directory:
+    required: false
+    default: .
+    description: "Location where to execute terragrunt apply command"
 
 runs:
   using: composite
@@ -16,11 +19,13 @@ runs:
       run: |
         rm -r ${{ inputs.terragrunt_download_directory }}/* --force
         mkdir --parents ${{ inputs.terragrunt_download_directory }}
+      working-directory: ${{ inputs.working_directory }}
       shell: bash
     - name: Terragrunt Apply
       run: |
         terragrunt run-all apply \
         --terragrunt-non-interactive
+      working-directory: ${{ inputs.working_directory }}
       shell: bash
     - name: Notify about failures
       if: ${{ failure() }}
