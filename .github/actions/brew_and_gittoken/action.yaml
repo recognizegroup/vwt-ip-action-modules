@@ -17,6 +17,8 @@ runs:
       shell: bash
     - name: Setup
       run: |
+        git config --global user.name "runner"
+        git config --global user.email "runner@recognize.nl"
         brew tap-new $USER/local-terragrunt
         brew extract --version 0.66.9 terragrunt $USER/local-terragrunt
         brew install terragrunt@v0.66.9
