@@ -16,5 +16,5 @@ runs:
     - run: echo "/home/linuxbrew/.linuxbrew/bin:/home/linuxbrew/.linuxbrew/sbin" >> $GITHUB_PATH
       shell: bash
     - name: Setup
-      run: brew install terragrunt
+      run: brew install terragrunt@v0.66.9
       shell: bash
