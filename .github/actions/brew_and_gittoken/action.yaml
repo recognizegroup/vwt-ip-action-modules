@@ -17,8 +17,8 @@ runs:
       shell: bash
     - name: Setup
       run: |
-        brew tap-new pipeline/terragrunt
-        brew extract --version 0.66.9 composer pipeline/terragrunt
+        brew tap-new $USER/local-terragrunt
+        brew extract --version 0.66.9 terragrunt $USER/local-terragrunt
         brew install terragrunt@v0.66.9
       
       shell: bash
