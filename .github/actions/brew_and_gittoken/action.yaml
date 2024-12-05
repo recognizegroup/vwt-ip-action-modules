@@ -21,5 +21,8 @@ runs:
         mv terragrunt_linux_amd64 terragrunt
         chmod +x terragrunt
         mv terragrunt /usr/local/bin
-      
+      shell: bash
+    - name: install Terraform
+      run: | 
+        sudo apt install terraform=1.9.0
       shell: bash
