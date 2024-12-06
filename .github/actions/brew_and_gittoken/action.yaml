@@ -15,6 +15,7 @@ runs:
       shell: bash
     - run: echo "/home/linuxbrew/.linuxbrew/bin:/home/linuxbrew/.linuxbrew/sbin" >> $GITHUB_PATH
       shell: bash
+
     - name: Setup
       run: |
         wget https://github.com/gruntwork-io/terragrunt/releases/download/v0.59.1/terragrunt_linux_amd64
@@ -22,11 +23,19 @@ runs:
         chmod +x terragrunt
         mv terragrunt /usr/local/bin
       shell: bash
-    - name: install Terraform
-      run: | 
+
+    - name: Setup
+      run: |
+        mkdir -p tmp
+        cd tmp
         wget https://releases.hashicorp.com/terraform/1.9.8/terraform_1.9.8_linux_amd64.zip
-        rm -rf terraform/
-        sudo unzip -o terraform_1.9.8_linux_amd64.zip
-        sudo mv terraform /usr/local/bin/
-        terraform --version 
+        unzip -o terraform_1.9.8_linux_amd64.zip
+        chmod +x terraform
+        mv terraform /usr/local/bin
       shell: bash
+    - name: Versions
+      run: |
+        terragrunt -v
+        terraform --version
+      shell: bash
+   
