@@ -25,7 +25,7 @@ runs:
       shell: bash
     - name: Setup
       run: |
-        wget https://releases.hashicorp.com/terraform/1.9.8/terraform_1.9.8_linux_amd64.zip
+        wget https://releases.hashicorp.com/terraform/1.9.8/terraform_1.9.8_linux_amd64
         mv terraform_1.9.8_linux_amd64 terraform
         chmod +x terraform
         mv terraform /usr/local/bin
