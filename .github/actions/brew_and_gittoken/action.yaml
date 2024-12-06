@@ -24,12 +24,6 @@ runs:
         mv terragrunt /usr/local/bin
       shell: bash
 
-    - name: Test
-      run: |
-        ls
-        ls terraform
-      shell: bash
-
     - name: Setup
       run: |
         mkdir -p tmp
