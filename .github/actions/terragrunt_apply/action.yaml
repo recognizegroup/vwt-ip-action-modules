@@ -21,12 +21,6 @@ runs:
         mkdir --parents ${{ inputs.terragrunt_download_directory }}
       working-directory: ${{ inputs.working_directory }}
       shell: bash
-    - name: Terragrunt Init
-      run: |
-        terragrunt run-all init -upgrade \
-        --terragrunt-non-interactive
-      working-directory: ${{ inputs.working_directory }}
-      shell: bash
     - name: Terragrunt Apply
       run: |
         terragrunt run-all apply \
