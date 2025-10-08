@@ -23,8 +23,7 @@ runs:
       shell: bash
     - name: Terragrunt Apply
       run: |
-        terragrunt run-all apply \
-        --terragrunt-non-interactive
+        terragrunt run-all apply --non-interactive
       working-directory: ${{ inputs.working_directory }}
       shell: bash
     - name: Notify about failures
