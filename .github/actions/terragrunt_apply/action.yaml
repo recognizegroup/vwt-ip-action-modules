@@ -1,0 +1,36 @@
+﻿name: Terragrunt Apply
+description: Runs Terragrunt apply and reports failure if occurs 
+inputs:
+  webhook:
+    required: true
+    description: "teams webhook"
+  terragrunt_download_directory:
+    required: true
+    description: "Terragrunt download directory"
+  working_directory:
+    required: false
+    default: .
+    description: "Location where to execute terragrunt apply command"
+
+runs:
+  using: composite
+  steps:
+    - name: Create Terraform Download Directory
+      run: |
+        rm -r ${{ inputs.terragrunt_download_directory }}/* --force
+        mkdir --parents ${{ inputs.terragrunt_download_directory }}
+      working-directory: ${{ inputs.working_directory }}
+      shell: bash
+    - name: Terragrunt Apply
+      run: |
+        terragrunt run-all apply --non-interactive --terragrunt-parallelism 5
+      working-directory: ${{ inputs.working_directory }}
+      shell: bash
+    - name: Notify about failures
+      if: ${{ failure() }}
+      run: |
+        cat << EOF > message.json
+        {"@type":"MessageCard","@context":"https://schema.org/extensions","summary":"Pipeline failed!","themeColor":"ff0000","title":"$GITHUB_REPOSITORY pipeline failed 💢!","sections":[{"facts":[{"name":"Repository:","value":"$GITHUB_REPOSITORY"},{"name":"Branch:","value":"$GITHUB_REF_NAME"},{"name":"Commit:","value":"$GITHUB_SHA"}]}],"potentialAction":[{"@type":"OpenUri","name":"View on GitHub","targets":[{"os":"default","uri":"$GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID"}]}]}
+        EOF
+        curl -X POST ${{ inputs.webhook }} --header 'Content-Type: application/json' -d @message.json
+      shell: bash

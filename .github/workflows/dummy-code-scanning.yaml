@@ -1,0 +1,11 @@
+name: "Dummy Code Scanning"
+
+on:
+  schedule:
+    - cron: '0 0 * * 1'
+  workflow_dispatch:
+
+jobs:
+  code-scanning-dummy:
+    name: Perform code scanning (Dummy)
+    uses: recognizegroup/security/.github/workflows/code-scanning-dummy.yaml@v2
