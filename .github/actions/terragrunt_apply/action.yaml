@@ -15,15 +15,36 @@ inputs:
 runs:
   using: composite
   steps:
-    - name: Create Terraform Download Directory
+    - name: Clean up disk space and create Terraform Download Directory
       run: |
-        rm -r ${{ inputs.terragrunt_download_directory }}/* --force
+        # Clean up disk space
+        sudo rm -rf /tmp/* 2>/dev/null || true
+        sudo rm -rf /var/tmp/* 2>/dev/null || true
+        sudo rm -rf ~/.cache/* 2>/dev/null || true
+        sudo rm -rf /home/runner/.cache/* 2>/dev/null || true
+        
+        # Clean up old terragrunt downloads
+        rm -rf ${{ inputs.terragrunt_download_directory }}/* --force 2>/dev/null || true
         mkdir --parents ${{ inputs.terragrunt_download_directory }}
+        
+        # Show available disk space
+        df -h
       working-directory: ${{ inputs.working_directory }}
       shell: bash
     - name: Terragrunt Apply
       run: |
         terragrunt run-all apply --non-interactive --terragrunt-parallelism 5
+      working-directory: ${{ inputs.working_directory }}
+      shell: bash
+    - name: Clean up after deployment
+      run: |
+        # Clean up terragrunt cache and temporary files
+        rm -rf ${{ inputs.terragrunt_download_directory }}/* --force 2>/dev/null || true
+        rm -rf .terraform/* --force 2>/dev/null || true
+        rm -rf .terragrunt-cache/* --force 2>/dev/null || true
+        
+        # Show final disk space
+        df -h
       working-directory: ${{ inputs.working_directory }}
       shell: bash
     - name: Notify about failures
