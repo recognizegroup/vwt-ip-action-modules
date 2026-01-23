@@ -55,7 +55,7 @@ runs:
       shell: bash
     - name: Terragrunt Apply
       run: |
-        terragrunt run-all apply --non-interactive --terragrunt-parallelism 5
+        terragrunt run-all apply --non-interactive --terragrunt-parallelism 2
       working-directory: ${{ inputs.working_directory }}
       shell: bash
     - name: Clean up after deployment
