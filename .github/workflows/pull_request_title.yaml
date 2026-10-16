@@ -3,7 +3,7 @@ on:
   workflow_call:
   pull_request:
     branches:
-      - develop
+      - main
     types:
       - opened
       - edited
